@@ -1,0 +1,247 @@
+/* src/assets/css/global.css */
+
+/* ... (您现有的 :root 和其他全局样式保持不变) ... */
+:root {
+  /* 主色调 - 蓝色 (参考图片中的蓝色，可微调) */
+  --primary-color: #1d50f9;       /* Element Plus 默认主蓝，与图片接近 */
+  --primary-hover: #0c78eb;
+  --primary-active: #3a8ee6;
+  --brand-logo-text-color: #0033FF;   /* Logo文字设置的颜色 */
+  --menu-active-border-color: #0056b3;    /* 深蓝色 */
+  --menu-item-active-group-bg: #f5f7fa;
+
+  --success-color: #52c41a;       /* 成功色 */
+  --warning-color: #faad14;       /* 警告色 */
+  --error-color: #f5222d;         /* 错误色 */
+
+  --font-color-primary: #303133;  /* 主要文字颜色 (Element Plus 默认) */
+  --font-color-secondary: #606266;/* 次要文字颜色 (Element Plus 默认) */
+  --font-color-light: #909399;    /* 浅色文字 (Element Plus 默认) */
+  --font-color-placeholder: #C0C4CC; /* 输入框占位符颜色 */
+
+  --border-color: #dcdfe6;        /* 边框颜色 (Element Plus 默认) */
+  --border-color-light: #e4e7ed;
+  --border-color-lighter: #ebeef5; /* Element Plus 表格头背景色，也可用作浅边框 */
+
+  --bg-color: #f0f2f5;            /* 页面整体背景色 */
+  --app-content-background: #ffffff; /* 主内容区域内部背景 */
+
+  --page-section-background: #ffffff; /* 图片中区块的背景色是白色 */
+  --page-section-border-color: #e0e6ed;
+  --page-section-title-color: var(--primary-color);
+  --page-section-title-border-color: #e2e4eb;
+
+
+  --header-height: 50px;          /* 头部高度 */
+  --sidebar-width: 210px;         /* 侧边栏宽度 */
+  --sidebar-collapsed-width: 64px;/* 侧边栏折叠宽度 */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color);
+  color: var(--font-color-primary);
+  font-size: 14px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(144, 147, 153, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.content-section-card {
+  background-color: var(--page-section-background);
+  border-radius: 4px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.06);
+}
+.content-section-card:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--page-section-title-color);
+  margin: -4px 0 20px 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--page-section-title-border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-main-header {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.page-main-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--font-color-primary);
+}
+
+/* 表格工具栏 (用于行内表单，如搜索区) */
+.table-toolbar {
+  display: flex;
+  flex-wrap: wrap; /* 允许表单项换行 */
+  align-items: center; /* 确保所有flex子项（el-form-item）垂直居中对齐 */
+  /* justify-content: flex-start; */ /* 默认从左开始排列，移除原有的 space-between */
+  gap: 10px 18px; /* flex 项之间的间隙 (行间隙 列间隙) */
+}
+
+.el-form--inline .el-form-item {
+  margin-bottom: 0;
+  margin-right: 0 !important;
+}
+
+/* 新增：用于将按钮组推到右侧的样式 */
+.table-toolbar .action-buttons-item {
+  margin-left: auto; /* 关键：这会将其余空间分配到此项的左侧，从而将其推到最右 */
+  /* 如果换行后，希望按钮组在新行的最左侧开始，则这个策略不适用，
+     需要更复杂的布局或JS辅助。但通常按钮组会与最后几个筛选条件在同一行或单独一行靠右。
+     如果希望它在换行后仍然在新行的最右侧，则需要父容器 `table-toolbar` 有足够的宽度，
+     或者按钮组的 `el-form-item` 设置 `flex-basis: 100%; display: flex; justify-content: flex-end;`
+     但这会使其独占一行。
+     当前 `margin-left: auto` 的效果是：如果按钮组与筛选条件在同一行，它会在最右侧；
+     如果按钮组因为空间不足而换行，它会在新行的最左侧（因为没有其他东西推它）。
+     为了确保它在换行后也在新行的最右侧，可能需要包裹一层额外的div或者JavaScript动态计算。
+     一个纯CSS的尝试是：*/
+  /* flex-shrink: 0; */ /* 防止按钮组被压缩 */
+}
+
+/* 确保在 table-toolbar 内，最后一个 el-form-item（如果它是按钮组）能被正确推到右边 */
+/* 这个选择器没有上面带特定class的精确，但可以作为一种通用处理方式 */
+/*
+.table-toolbar > .el-form-item:last-child:not(:only-child) {
+  margin-left: auto;
+}
+*/
+
+
+/* ... (其余的 .el-table, .el-button, .el-form-item__label 等样式保持不变) ... */
+.el-table th.el-table__cell {
+  background-color: #f5f7fa !important;
+  color: var(--font-color-secondary);
+  font-weight: 500;
+  font-size: 14px;
+}
+.el-table td.el-table__cell {
+  font-size: 14px;
+  color: var(--font-color-primary);
+}
+.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell {
+  background-color: #fafcff;
+}
+
+.el-button--primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #ffffff;
+}
+.el-button--primary:hover,
+.el-button--primary:focus {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: #ffffff;
+}
+.el-button--primary:active {
+  background-color: var(--primary-active);
+  border-color: var(--primary-active);
+  color: #ffffff;
+}
+.el-button--success {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  color: #ffffff;
+}
+.el-button--success:hover,
+.el-button--success:focus {
+  background-color: color-mix(in srgb, var(--success-color) 90%, #000 10%);
+  border-color: color-mix(in srgb, var(--success-color) 90%, #000 10%);
+  color: #ffffff;
+}
+.el-button--warning {
+  background-color: var(--warning-color);
+  border-color: var(--warning-color);
+  color: #ffffff;
+}
+.el-button--warning:hover,
+.el-button--warning:focus {
+  background-color: color-mix(in srgb, var(--warning-color) 90%, #000 10%);
+  border-color: color-mix(in srgb, var(--warning-color) 90%, #000 10%);
+  color: #ffffff;
+}
+.el-button--danger {
+  background-color: var(--error-color);
+  border-color: var(--error-color);
+  color: #ffffff;
+}
+.el-button--danger:hover,
+.el-button--danger:focus {
+  background-color: color-mix(in srgb, var(--error-color) 90%, #000 10%);
+  border-color: color-mix(in srgb, var(--error-color) 90%, #000 10%);
+  color: #ffffff;
+}
+
+.el-form-item__label {
+  color: var(--font-color-secondary);
+  font-size: 14px;
+  padding-right: 12px;
+}
+
+.el-input__inner, .el-textarea__inner {
+  color: var(--font-color-primary);
+}
+.el-input__inner::placeholder, .el-textarea__inner::placeholder {
+  color: var(--font-color-placeholder);
+}
+
+.el-tag--success { background-color: #f6ffed; border-color: #b7eb8f; color: var(--success-color); }
+.el-tag--warning { background-color: #fffbe6; border-color: #ffe58f; color: var(--warning-color); }
+.el-tag--danger { background-color: #fff1f0; border-color: #ffa39e; color: var(--error-color); }
+.el-tag--info { background-color: #f4f4f5; border-color: #e9e9eb; color: var(--font-color-secondary); }
+
+.page-actions-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px 24px;
+  background-color: var(--page-section-background);
+  border-top: 1px solid var(--page-section-title-border-color);
+  border-radius: 0 0 4px 4px;
+}
+.page-actions-footer.fixed {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  box-shadow: 0 -2px 12px 0 rgba(0, 0, 0, 0.06);
+}
+.page-actions-footer .el-button + .el-button {
+  margin-left: 10px;
+}
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+.mb-10 { margin-bottom: 10px; }
+.mb-20 { margin-bottom: 20px; }
+.mt-10 { margin-top: 10px; }
+.mt-20 { margin-top: 20px; }
+.flex-center { display: flex; justify-content: center; align-items: center; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.flex-end { display: flex; justify-content: flex-end; align-items: center; }
+.clearfix:after { content: ""; display: table; clear: both; }
